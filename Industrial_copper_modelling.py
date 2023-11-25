@@ -1,22 +1,11 @@
 
 #Part 1
 
-from tkinter import _test
-import pandas as pd
 import numpy as np
-from sklearn.compose import ColumnTransformer
-from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeRegressor , DecisionTreeClassifier
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
-from sklearn.metrics import mean_squared_error, r2_score, accuracy_score, confusion_matrix, classification_report, roc_curve, auc
-from sklearn.model_selection import GridSearchCV
-from sklearn.preprocessing import LabelBinarizer
 import streamlit as st
 import re
 from PIL import Image
 from streamlit_option_menu import option_menu
-import seaborn as sns
-import matplotlib.pyplot as plt
 import warnings
 import pickle
 warnings.filterwarnings("ignore")
@@ -29,7 +18,7 @@ import pickle
 icon = Image.open("E:\Guvidatascience\Projects\Industrial_Copper_Modeling\Industrial_copper_modelling.png")
 # Set page configurations with background color
 st.set_page_config(
-    page_title="Employment attrition Analysis , Visualization and Prediction  | By Kiruthicka",
+    page_title="Industrial Copper Modeling  | By Kiruthicka",
     page_icon=icon,
     layout="wide",
     initial_sidebar_state="expanded",
@@ -56,9 +45,9 @@ st.markdown(background_color, unsafe_allow_html=True)
 
 # CREATING OPTION MENU
 with st.sidebar:
-    selected = option_menu(None,["Home", "EDA" ,"Predictive analysis"],
-        icons=["house-fill","tools","book"],
-        default_index=2,
+    selected = option_menu(None,["Home","Predictive analysis"],
+        icons=["house-fill","tools"],
+        default_index=0,
         orientation="Vertical",
         styles={
             "nav-link": {
@@ -77,8 +66,6 @@ with st.sidebar:
             }
         }
     )
-
-
 
 #Part3
 # HOME PAGE
@@ -118,96 +105,6 @@ if selected == "Home":
         st.markdown("### Industrial Copper Modeling is a comprehensive project focusing on data analysis, machine learning, and web development. The project involves Python scripting for data preprocessing, exploratory data analysis (EDA), and building machine learning models for regression and classification. The Streamlit framework is used to create an interactive web page allowing users to input data and obtain predictions for selling price or lead status. ")
 
         
-#Part 4
-if selected == "EDA":
-
-
-    df_p = pd.read_csv(r"E:\Guvidatascience\Projects\Industrial_Copper_Modeling\Industrial_copper_Modeling.csv")
-
-    # Set the page title
-    st.title("Industrial Copper Modeling Data Visualization")
-    st.subheader("Exploratory Data Analysis: Distribution Plots for Key Features in DataFrame")
-
-    st.subheader("Quantity Tons Distribution")
-    fig, ax = plt.subplots(figsize=(15, 6))  # Adjust the figsize to your desired size
-    sns.distplot(df_p['quantity tons'], ax=ax)
-    st.pyplot(fig)  # Display the plot using st.pyplot()
-
-    st.subheader("Country Distribution")
-    fig, ax = plt.subplots(figsize=(15, 6))  # Adjust the figsize to your desired size
-    sns.distplot(df_p['country'], ax=ax)
-    st.pyplot(fig)  # Display the plot using st.pyplot()
-
-    st.subheader("Application Distribution")
-    fig, ax = plt.subplots(figsize=(15, 6))  # Adjust the figsize to your desired size
-    sns.distplot(df_p['application'], ax=ax)
-    st.pyplot(fig)  # Display the plot using st.pyplot()
-
-    st.subheader("Thickness Distribution")
-    fig, ax = plt.subplots(figsize=(15, 6))  # Adjust the figsize to your desired size
-    sns.distplot(df_p['thickness'], ax=ax)
-    st.pyplot(fig)  # Display the plot using st.pyplot()
-
-    st.subheader("Width Distribution")
-    fig, ax = plt.subplots(figsize=(15, 6))  # Adjust the figsize to your desired size
-    sns.distplot(df_p['width'], ax=ax)
-    st.pyplot(fig)  # Display the plot using st.pyplot()
-
-##########
-
-   
-    mask1 = df_p['selling_price'] <= 0
-    print(mask1.sum())
-    df_p.loc[mask1, 'selling_price'] = np.nan
-
-    mask1 = df_p['quantity tons'] <= 0
-    print(mask1.sum())
-    df_p.loc[mask1, 'quantity tons'] = np.nan
-
-    mask1 = df_p['thickness'] <= 0
-    print(mask1.sum())
-
-#######
-    st.subheader("Log Transformation and Distribution Plots for Skewed Features in DataFrame")
-    df_p['selling_price_log'] = np.log(df_p['selling_price'])
-    sns.distplot(df_p['selling_price_log'])
-    st.pyplot(fig)
-
-    df_p['quantity tons_log'] = np.log(df_p['quantity tons'])
-    sns.distplot(df_p['quantity tons_log'])
-    st.pyplot(fig)
-
-    df_p['thickness_log'] = np.log(df_p['thickness'])
-    sns.distplot(df_p['thickness_log'])
-    st.pyplot(fig)
-
-
-
-############
-
-    st.subheader("Correlation Heatmap for Transformed Features in DataFrame")
-
-    # Assuming df_p has been loaded or defined earlier
-
-    # Log transformations
-    df_p['selling_price_log'] = np.log(df_p['selling_price'])
-    df_p['quantity tons_log'] = np.log(df_p['quantity tons'])
-    df_p['thickness_log'] = np.log(df_p['thickness'])
-
-    # Calculate correlation matrix
-    correlation_matrix = df_p[['quantity tons_log', 'thickness_log', 'width', 'selling_price_log']].corr()
-
-    # Create a heatmap
-    fig, ax = plt.subplots(figsize=(15, 6))
-    sns.heatmap(correlation_matrix, annot=True, cmap="YlGnBu", ax=ax)
-
-    # Set title
-    plt.title("Correlation Heatmap")
-
-    # Display the heatmap in Streamlit
-    st.pyplot(fig)
-
-   
 #Part 5
 
 if selected == "Predictive analysis":
@@ -215,7 +112,7 @@ if selected == "Predictive analysis":
 
     st.write("""
     <div style='text-align:center'>
-        <h1 style='color:#009999;'>Industrial Copper Modeling Application</h1>
+        <h1 style='color:#CD7F32;'>Industrial Copper Modeling Application</h1>
     </div>
     """, unsafe_allow_html=True)
 
@@ -256,7 +153,7 @@ if selected == "Predictive analysis":
                 st.markdown("""
                         <style>
                         div.stButton > button:first-child {
-                            background-color: #009999;
+                            background-color: #CD7F32;
                             color: white;
                             width: 100%;
                         }
