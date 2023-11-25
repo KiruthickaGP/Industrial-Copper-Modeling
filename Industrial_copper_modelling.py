@@ -9,8 +9,8 @@ from streamlit_option_menu import option_menu
 import warnings
 import pickle
 warnings.filterwarnings("ignore")
-import streamlit as st
-import pickle
+
+
 
 #Part 2
 
