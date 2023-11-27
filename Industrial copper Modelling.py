@@ -1,9 +1,4 @@
-#!/usr/bin/env python
-# coding: utf-8
 
-# # Industrial Copper Modeling
-
-# In[35]:
 
 
 #1 Importing libraries
